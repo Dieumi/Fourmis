@@ -1,0 +1,173 @@
+﻿<Window x:Class="fourmilliereALIHM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:fourmilliereALIHM"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        mc:Ignorable="d"
+        Title="{Binding TitreApplication}" Height="350" Width="525">
+    <Grid ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding PersonnagesList}" SelectedItem="{Binding PersoSelect}" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/alive.png" Width="30" Grid.Column="0"></Image>
+                            <TextBlock Text="{Binding Nom}" Grid.Column="1"></TextBlock>
+                            <TextBlock Text="{Binding ListEtape.Count}" Grid.Column="2"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Row="1" Grid.Column="0" ItemsSource="{Binding PersonnagesMortList}" SelectedItem="{Binding PersoSelect}" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="Images/dead.png" Width="30" Grid.Column="0"></Image>
+                            <TextBlock Text="{Binding Nom}" Grid.Column="1"></TextBlock>
+                            <TextBlock Text="{Binding ListEtape.Count}" Grid.Column="2"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="20" Text="{Binding TourActuel, StringFormat=Tour: \{0\}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" FontSize="20" Text="{Binding TitreApplication}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="2" FontSize="20" Text="{Binding PersonnagesList.Count, StringFormat=Fourmies: \{0\}}" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+        <Grid Grid.Row="2" Grid.Column="2" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Name="config" Grid.Column="0" Click="Configure"  >
+                <Button.Content>
+                    <Image Source="Images/settings.png">
+                    </Image>
+                </Button.Content>
+            </Button>
+            <Button Grid.Column="1" Click="Button_Click_2"  >
+                <Button.Content>
+                    <Image Source="Images/ants_logo.png">
+                    </Image>
+                </Button.Content>
+            </Button>
+        </Grid>
+        <Grid  Grid.Row="2" Grid.Column="0" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="8*"/>
+
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+
+            </Grid.RowDefinitions>
+            <TextBox Text="{Binding Path=Value,ElementName=slider}" Grid.Row="0" Grid.Column="0" Margin="0,-26,0,10" Grid.ColumnSpan="2" ></TextBox>
+            <Button x:Name="restart" Content="Rédémarrer" Grid.Row="0" Grid.Column="1" Margin="0,-26,0,10.2" Click="redemarrer"/>
+            <Slider Grid.Column="0" x:Name="slider" Minimum="0" Maximum="500"   Value="{Binding vitesse}" ValueChanged="ChangeSpeed" Grid.ColumnSpan="2" Margin="0,5,0,-5" Grid.RowSpan="1" IsSnapToTickEnabled="True" TickFrequency="1"/>
+        </Grid>
+
+        <Button Name="deletePerso" Grid.Row="3" Grid.Column="0"  Click="Button_Click" >
+            <Button.Content>
+                <TextBlock Text="{Binding PersoSelect, StringFormat='Supprimer{0}'}"/>
+            </Button.Content>
+        </Button>
+
+        <Grid Grid.Row="1" Grid.Column="2" ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="{Binding PersoSelect.Nom, StringFormat=Nom: \{0\}}"/>
+            <TextBlock Grid.Row="1" Text="{Binding PersoSelect.ListEtape.Count, StringFormat=étape: \{0\}}"/>
+            <TextBlock Grid.Row="2" Text="{Binding PersoSelect.PV, StringFormat=PV: \{0\}}"/>
+            <ListBox  Grid.Row="3"  ItemsSource="{Binding PersoSelect.ListEtape}" HorizontalContentAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding tour}" Grid.Column="0"></TextBlock>
+                            <TextBlock Text="{Binding action}" Grid.Column="1"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Rectangle x:Name="fog" Panel.ZIndex="2000" Fill="White" Opacity="0.5" Grid.Row="1" Grid.Column="1"/>
+        <Image x:Name="rain" Panel.ZIndex="2000" Stretch="Fill" gif:AnimationBehavior.SourceUri="Images/rain.gif" Grid.Row="1" Grid.Column="1"/>
+
+        <Grid Name="Plateau" Grid.Row="1" Grid.Column="1" ShowGridLines="false">
+            <Grid.Background>
+                <ImageBrush Stretch="Fill" ImageSource="Images/ground.jpg"/>
+
+            </Grid.Background>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="btnSuivant" Grid.Column="0"  Content="Tour suivant" Click="btnSuivant_Click"></Button>
+            <Button Name="btnCharge" Grid.Column="2"  Content="Charger" Click="btnCharge_Click"></Button>
+            <Button Name="btnSave" Grid.Column="3"  Content="Sauvegarder" Click="btnSave_Click"></Button>
+            <Button Name="btnAvance" Grid.Column="1" Content="Avance Rapide" Click="btnAvance_Click"/>
+            <Button Name="btnStop" IsEnabled="False" Grid.Column="4" Content="Stop" Click="btnStop_Click"/>
+
+
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1" ShowGridLines="False">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Name="AddGuerriere" Grid.Column="0" Content="Guerriere" Click="Button_Click_Add_Guerriere"/>
+            <Button Name="AddOuvriere" Grid.Column="1" Content="Ouvriere" Click="Button_Click_Add_Ouvriere" />
+            <Button Name="AddPrincesse" Grid.Column="2" Content="Princesse" Click="Button_Click_Add_Princesse"/>
+            <Button Name="AddReine" Grid.Column="3" Content="Reine" Click="Button_Click_Add_Reine" />
+            <Button Name="AddTermite" Grid.Column="4" Content="Termite" Click="Button_Click_Add_Termite" />
+        </Grid>
+    </Grid>
+</Window>
