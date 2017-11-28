@@ -139,12 +139,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="aviatrix.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Roi.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\LibAbstraite\LibAbstraite.csproj">
       <Project>{6aee2e0b-195d-46df-91e3-040b0fbd2fa6}</Project>
       <Name>LibAbstraite</Name>

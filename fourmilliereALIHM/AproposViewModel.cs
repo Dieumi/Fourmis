@@ -9,7 +9,7 @@ namespace fourmilliereALIHM
 {
     public class AproposViewModel : ViewModelBase
     {
-        public string CopyRight { get { return "ESGI 4AL"; } }
+        public string CopyRight { get { return "UQAC 2017"; } }
         public string Date { get { return System.DateTime.Now.ToString(); } }
         public string Author { get { return "Pierre Lochouarn et Corentin Trehiou"; } }
     }
